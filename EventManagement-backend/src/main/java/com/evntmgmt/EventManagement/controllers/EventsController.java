@@ -1,6 +1,7 @@
 package com.evntmgmt.EventManagement.controllers;
 
 import com.evntmgmt.EventManagement.models.Events;
+import com.evntmgmt.EventManagement.response.GeneralResponse;
 import com.evntmgmt.EventManagement.services.EventsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,14 +27,14 @@ public class EventsController {
         return new ResponseEntity<Optional<Events>>(eventsService.oneEvent(eventId), HttpStatus.OK);
     }
     @PostMapping("/createEvent")
-    public ResponseEntity<Events> createEvent(@RequestBody Map<String, String> payload) {
-        return new ResponseEntity<Events>(eventsService.createEvent(Integer.valueOf(payload.get("eventID")), payload.get("eventName"), payload.get("eventDateTime"), payload.get("eventVenue")), HttpStatus.OK);
+    public GeneralResponse createEvent(@RequestBody Map<String, String> payload) {
+        return eventsService.createEvent(Integer.valueOf(payload.get("eventID")), payload.get("eventName"), payload.get("eventDateTime"), payload.get("eventVenue"), Float.valueOf(payload.get("priceGold")), Float.valueOf(payload.get("priceSilver")), Float.valueOf(payload.get("priceBronze")));
     }
     @DeleteMapping("/removeEvent/{eventId}")
     public ResponseEntity<Boolean> removeEvent(@PathVariable Integer eventId) {
         return new ResponseEntity<Boolean>(eventsService.removeEvent(eventId), HttpStatus.OK);
     }
-    @PostMapping("/updateEvent/{eventId}")
+    @PutMapping("/updateEvent/{eventId}")
     public ResponseEntity<Events> updateEvent(@PathVariable Integer eventId, @RequestBody Map<String, String> payload) {
         return new ResponseEntity<Events>(eventsService.updateEvent(eventId, payload.get("eventName"), payload.get("eventDateTime"), payload.get("eventVenue")), HttpStatus.OK);
     }
