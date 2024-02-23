@@ -11,6 +11,7 @@ public class EventsDto {
     @Id
     private Integer eventID;
     private String eventName;
+    private String eventDesc;
     private String eventDateTime;
     private String eventVenue;
     private Float priceGold;
@@ -37,6 +38,9 @@ public class EventsDto {
     public Float getPriceBronze() {
         return priceBronze;
     }
+    public String getEventDesc() {
+        return eventDesc;
+    }
     public void setEventID(Integer eventID) {
         this.eventID = eventID;
     }
@@ -57,5 +61,9 @@ public class EventsDto {
     }
     public void setPriceBronze(Float priceBronze) {
         this.priceBronze = priceBronze;
+    }
+
+    public void setEventDesc(String eventDesc) {
+        this.eventDesc = eventDesc;
     }
 }

@@ -20,6 +20,7 @@ public class Events {
     @Id
     private Integer eventID;
     private String eventName;
+    private String eventDesc;
     private String eventDateTime;
     private String eventVenue;
     private Float priceGold;
@@ -32,9 +33,10 @@ public class Events {
         this.eventVenue = eventVenue;
     }
 
-    public Events(Integer eventId, String eventName, String eventDateTime, String eventVenue, Float priceGold, Float priceSilver, Float priceBronze) {
+    public Events(Integer eventId, String eventName, String eventDesc, String eventDateTime, String eventVenue, Float priceGold, Float priceSilver, Float priceBronze) {
         this.eventID = eventId;
         this.eventName = eventName;
+        this.eventDesc = eventDesc;
         this.eventDateTime = eventDateTime;
         this.eventVenue = eventVenue;
         this.priceGold = priceGold;

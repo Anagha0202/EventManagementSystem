@@ -35,12 +35,12 @@ public class EventsService {
     public Optional<Events> oneEvent(Integer eventId){
         return eventsRepository.findEventByEventID(eventId);
     }
-    public GeneralResponse createEvent(Integer eventId, String eventName, String eventDateTime, String eventVenue, Float priceGold, Float priceSilver, Float priceBronze) {
+    public GeneralResponse createEvent(Integer eventId, String eventName, String eventDesc, String eventDateTime, String eventVenue, Float priceGold, Float priceSilver, Float priceBronze) {
         Optional<Events> existingEvent = eventsRepository.findEventByEventID(eventId);
         if(existingEvent.isPresent()) {
             return new GeneralResponse("Event ID already exists", false);
         }
-        Events event = eventsRepository.insert(new Events(eventId, eventName, eventDateTime, eventVenue, priceGold, priceSilver, priceBronze));
+        Events event = eventsRepository.insert(new Events(eventId, eventName, eventDesc, eventDateTime, eventVenue, priceGold, priceSilver, priceBronze));
         mongoTemplate.save(event, "Events");
 
         Seats seats = seatsRepository.insert(new Seats(eventId, seatsService.createSeats(noOfGold,priceGold,noOfSilver,priceSilver,noOfBronze,priceBronze)));
