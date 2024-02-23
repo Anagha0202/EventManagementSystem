@@ -22,11 +22,23 @@ public class Events {
     private String eventName;
     private String eventDateTime;
     private String eventVenue;
-
+    private Float priceGold;
+    private Float priceSilver;
+    private Float priceBronze;
     public Events(Integer eventId, String eventName, String eventDateTime, String eventVenue) {
         this.eventID = eventId;
         this.eventName = eventName;
         this.eventDateTime = eventDateTime;
         this.eventVenue = eventVenue;
+    }
+
+    public Events(Integer eventId, String eventName, String eventDateTime, String eventVenue, Float priceGold, Float priceSilver, Float priceBronze) {
+        this.eventID = eventId;
+        this.eventName = eventName;
+        this.eventDateTime = eventDateTime;
+        this.eventVenue = eventVenue;
+        this.priceGold = priceGold;
+        this.priceSilver = priceSilver;
+        this.priceBronze = priceBronze;
     }
 }

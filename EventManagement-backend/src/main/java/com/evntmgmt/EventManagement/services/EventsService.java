@@ -40,19 +40,25 @@ public class EventsService {
         if(existingEvent.isPresent()) {
             return new GeneralResponse("Event ID already exists", false);
         }
-        Events event = eventsRepository.insert(new Events(eventId, eventName, eventDateTime, eventVenue));
+        Events event = eventsRepository.insert(new Events(eventId, eventName, eventDateTime, eventVenue, priceGold, priceSilver, priceBronze));
         mongoTemplate.save(event, "Events");
 
         Seats seats = seatsRepository.insert(new Seats(eventId, seatsService.createSeats(noOfGold,priceGold,noOfSilver,priceSilver,noOfBronze,priceBronze)));
         mongoTemplate.save(seats, "Seats");
         return new GeneralResponse("Event created successfully!", true);
     }
-    public Boolean removeEvent(Integer eventId) {
+    public GeneralResponse removeEvent(Integer eventId) {
         try{
-            DeleteResult deleteResult = mongoTemplate.remove(new Query(Criteria.where("eventID").is(eventId)), Events.class, "Events");
-            return true;
+            List<Events> foundEvent = mongoTemplate.find(new Query(Criteria.where("eventID").is(eventId)), Events.class);
+            List<Seats> foundSeats = mongoTemplate.find(new Query(Criteria.where("eventId").is(eventId)), Seats.class);
+            if(!foundEvent.isEmpty() && !foundSeats.isEmpty()) {
+                DeleteResult deleteEventResult = mongoTemplate.remove(new Query(Criteria.where("eventID").is(eventId)), Events.class, "Events");
+                DeleteResult deleteSeatsResult = mongoTemplate.remove(new Query(Criteria.where("eventId").is(eventId)), Seats.class, "Seats");
+                return new GeneralResponse("Event Deleted Successfully!", true);
+            }
+            return new GeneralResponse("Unable to delete as Event or Seats not found", false);
         } catch(Exception e) {
-            return false;
+            return new GeneralResponse(e.getMessage(), false);
         }
     }
     public Events updateEvent(Integer eventId, String eventName, String eventDateTime, String eventVenue) {

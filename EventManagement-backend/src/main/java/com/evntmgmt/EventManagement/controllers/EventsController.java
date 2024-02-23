@@ -1,8 +1,10 @@
 package com.evntmgmt.EventManagement.controllers;
 
+import com.evntmgmt.EventManagement.dto.EventsDto;
 import com.evntmgmt.EventManagement.models.Events;
 import com.evntmgmt.EventManagement.response.GeneralResponse;
 import com.evntmgmt.EventManagement.services.EventsService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,12 +29,12 @@ public class EventsController {
         return new ResponseEntity<Optional<Events>>(eventsService.oneEvent(eventId), HttpStatus.OK);
     }
     @PostMapping("/createEvent")
-    public GeneralResponse createEvent(@RequestBody Map<String, String> payload) {
-        return eventsService.createEvent(Integer.valueOf(payload.get("eventID")), payload.get("eventName"), payload.get("eventDateTime"), payload.get("eventVenue"), Float.valueOf(payload.get("priceGold")), Float.valueOf(payload.get("priceSilver")), Float.valueOf(payload.get("priceBronze")));
+    public GeneralResponse createEvent(@Valid @RequestBody EventsDto eventsDto) {
+        return eventsService.createEvent(eventsDto.getEventID(), eventsDto.getEventName(), eventsDto.getEventDateTime(), eventsDto.getEventVenue(), eventsDto.getPriceGold(), eventsDto.getPriceSilver(), eventsDto.getPriceBronze());
     }
     @DeleteMapping("/removeEvent/{eventId}")
-    public ResponseEntity<Boolean> removeEvent(@PathVariable Integer eventId) {
-        return new ResponseEntity<Boolean>(eventsService.removeEvent(eventId), HttpStatus.OK);
+    public GeneralResponse removeEvent(@PathVariable Integer eventId) {
+        return eventsService.removeEvent(eventId);
     }
     @PutMapping("/updateEvent/{eventId}")
     public ResponseEntity<Events> updateEvent(@PathVariable Integer eventId, @RequestBody Map<String, String> payload) {
