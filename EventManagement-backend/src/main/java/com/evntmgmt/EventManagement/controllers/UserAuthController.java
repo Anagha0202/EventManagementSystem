@@ -1,6 +1,7 @@
 package com.evntmgmt.EventManagement.controllers;
 
 import com.evntmgmt.EventManagement.dto.UserAuthDto;
+import com.evntmgmt.EventManagement.dto.UserSignupDto;
 import com.evntmgmt.EventManagement.response.Command;
 import com.evntmgmt.EventManagement.services.UserService;
 import jakarta.validation.Valid;
@@ -15,8 +16,8 @@ public class UserAuthController {
     private UserService userService;
 
     @PostMapping("/signup")
-    public Command signup(@Valid @RequestBody UserAuthDto userAuthDto) {
-        return userService.signUp(userAuthDto.getFirstName(), userAuthDto.getLastName(), userAuthDto.getEmail(), userAuthDto.getPassword());
+    public Command signup(@Valid @RequestBody UserSignupDto userSignupDto) {
+        return userService.signUp(userSignupDto.getFirstName(), userSignupDto.getLastName(), userSignupDto.getEmail(), userSignupDto.getPassword());
     }
     @PostMapping("/login")
     public Command login(@Valid @RequestBody UserAuthDto loginRequestDto) {

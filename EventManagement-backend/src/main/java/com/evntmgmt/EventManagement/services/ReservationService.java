@@ -47,6 +47,6 @@ public class ReservationService {
 
         boolean isPaid = false;
         Reservation reservation = reservationRepository.insert(new Reservation(email, eventId, seatIds, total, isPaid));
-        return new GeneralResponse(countSeatsAvailable+" seats reserved successfully! Reservation Id: "+reservation.getReservationId(), true, (String) reservation.getReservationId());
+        return new GeneralResponse(countSeatsAvailable+" seats reserved successfully!", true, (String) reservation.getReservationId());
     }
 }

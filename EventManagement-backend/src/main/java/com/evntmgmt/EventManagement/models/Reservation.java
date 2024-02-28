@@ -3,7 +3,6 @@ package com.evntmgmt.EventManagement.models;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -32,6 +31,7 @@ public class Reservation {
         this.total = total;
         this.isPaid = isPaid;
         this.reservationDate = new Date();
+        this.paidDate = null;
     }
     public void setReservationId(String reservationId) {
         this.reservationId = reservationId;
