@@ -33,10 +33,10 @@ public class EventsService {
         return eventsRepository.findAll();
     }
     public Optional<Events> oneEvent(Integer eventId){
-        return eventsRepository.findEventByEventID(eventId);
+        return eventsRepository.findEventByEventId(eventId);
     }
     public GeneralResponse createEvent(Integer eventId, String eventName, String eventDesc, String eventDateTime, String eventVenue, Float priceGold, Float priceSilver, Float priceBronze) {
-        Optional<Events> existingEvent = eventsRepository.findEventByEventID(eventId);
+        Optional<Events> existingEvent = eventsRepository.findEventByEventId(eventId);
         if(existingEvent.isPresent()) {
             return new GeneralResponse("Event ID already exists", false);
         }
@@ -49,10 +49,10 @@ public class EventsService {
     }
     public GeneralResponse removeEvent(Integer eventId) {
         try{
-            List<Events> foundEvent = mongoTemplate.find(new Query(Criteria.where("eventID").is(eventId)), Events.class);
+            List<Events> foundEvent = mongoTemplate.find(new Query(Criteria.where("eventId").is(eventId)), Events.class);
             List<Seats> foundSeats = mongoTemplate.find(new Query(Criteria.where("eventId").is(eventId)), Seats.class);
             if(!foundEvent.isEmpty() && !foundSeats.isEmpty()) {
-                DeleteResult deleteEventResult = mongoTemplate.remove(new Query(Criteria.where("eventID").is(eventId)), Events.class, "Events");
+                DeleteResult deleteEventResult = mongoTemplate.remove(new Query(Criteria.where("eventId").is(eventId)), Events.class, "Events");
                 DeleteResult deleteSeatsResult = mongoTemplate.remove(new Query(Criteria.where("eventId").is(eventId)), Seats.class, "Seats");
                 return new GeneralResponse("Event Deleted Successfully!", true);
             }
@@ -61,11 +61,18 @@ public class EventsService {
             return new GeneralResponse(e.getMessage(), false);
         }
     }
-    public Events updateEvent(Integer eventId, String eventName, String eventDateTime, String eventVenue) {
+    public Events updateEvent(Integer eventId, String eventName, String eventDateTime, String eventVenue, String eventDesc, String priceGold, String priceSilver, String priceBronze) {
+        float pricegold = Float.parseFloat(priceGold);
+        float pricesilver = Float.parseFloat(priceSilver);
+        float pricebronze = Float.parseFloat(priceBronze);
         Update update = new Update();
         update.set("eventName", eventName);
         update.set("eventDateTime", eventDateTime);
         update.set("eventVenue", eventVenue);
-        return mongoTemplate.findAndModify(new Query(Criteria.where("eventID").is(eventId)), update, Events.class);
+        update.set("eventDesc", eventDesc);
+        update.set("priceGold", pricegold);
+        update.set("priceSilver", pricesilver);
+        update.set("priceBronze", pricebronze);
+        return mongoTemplate.findAndModify(new Query(Criteria.where("eventId").is(eventId)), update, Events.class);
     }
 }

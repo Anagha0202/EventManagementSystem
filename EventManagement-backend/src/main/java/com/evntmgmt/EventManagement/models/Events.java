@@ -14,7 +14,7 @@ public class Events {
 
     private Object ID;
     @Id
-    private Integer eventID;
+    private Integer eventId;
     private String eventName;
     private String eventDesc;
     private String eventDateTime;
@@ -23,14 +23,14 @@ public class Events {
     private Float priceSilver;
     private Float priceBronze;
     public Events(Integer eventId, String eventName, String eventDateTime, String eventVenue) {
-        this.eventID = eventId;
+        this.eventId = eventId;
         this.eventName = eventName;
         this.eventDateTime = eventDateTime;
         this.eventVenue = eventVenue;
     }
 
     public Events(Integer eventId, String eventName, String eventDesc, String eventDateTime, String eventVenue, Float priceGold, Float priceSilver, Float priceBronze) {
-        this.eventID = eventId;
+        this.eventId = eventId;
         this.eventName = eventName;
         this.eventDesc = eventDesc;
         this.eventDateTime = eventDateTime;
@@ -40,8 +40,8 @@ public class Events {
         this.priceBronze = priceBronze;
     }
 
-    public Integer getEventID() {
-        return eventID;
+    public Integer getEventId() {
+        return eventId;
     }
     public String getEventName() {
         return eventName;
@@ -64,8 +64,8 @@ public class Events {
     public String getEventDesc() {
         return eventDesc;
     }
-    public void setEventID(Integer eventID) {
-        this.eventID = eventID;
+    public void setEventId(Integer eventId) {
+        this.eventId = eventId;
     }
     public void setEventName(String eventName) {
         this.eventName = eventName;

@@ -9,5 +9,5 @@ import java.util.Optional;
 
 @Repository
 public interface EventsRepository extends MongoRepository<Events, ObjectId> {
-    Optional<Events> findEventByEventID(Integer eventId);
+    Optional<Events> findEventByEventId(Integer eventId);
 }

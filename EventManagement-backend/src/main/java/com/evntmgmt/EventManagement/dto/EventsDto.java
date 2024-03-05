@@ -9,7 +9,7 @@ import org.springframework.data.annotation.Id;
 public class EventsDto {
     private Object ID;
     @Id
-    private Integer eventID;
+    private Integer eventId;
     private String eventName;
     private String eventDesc;
     private String eventDateTime;
@@ -17,8 +17,8 @@ public class EventsDto {
     private Float priceGold;
     private Float priceSilver;
     private Float priceBronze;
-    public Integer getEventID() {
-        return eventID;
+    public Integer getEventId() {
+        return eventId;
     }
     public String getEventName() {
         return eventName;
@@ -41,8 +41,8 @@ public class EventsDto {
     public String getEventDesc() {
         return eventDesc;
     }
-    public void setEventID(Integer eventID) {
-        this.eventID = eventID;
+    public void setEventId(Integer eventId) {
+        this.eventId = eventId;
     }
     public void setEventName(String eventName) {
         this.eventName = eventName;

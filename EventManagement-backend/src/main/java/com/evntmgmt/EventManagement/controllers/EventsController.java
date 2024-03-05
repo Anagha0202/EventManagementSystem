@@ -30,7 +30,7 @@ public class EventsController {
     }
     @PostMapping("/createEvent")
     public GeneralResponse createEvent(@Valid @RequestBody EventsDto eventsDto) {
-        return eventsService.createEvent(eventsDto.getEventID(), eventsDto.getEventName(), eventsDto.getEventDesc(), eventsDto.getEventDateTime(), eventsDto.getEventVenue(), eventsDto.getPriceGold(), eventsDto.getPriceSilver(), eventsDto.getPriceBronze());
+        return eventsService.createEvent(eventsDto.getEventId(), eventsDto.getEventName(), eventsDto.getEventDesc(), eventsDto.getEventDateTime(), eventsDto.getEventVenue(), eventsDto.getPriceGold(), eventsDto.getPriceSilver(), eventsDto.getPriceBronze());
     }
     @DeleteMapping("/removeEvent/{eventId}")
     public GeneralResponse removeEvent(@PathVariable Integer eventId) {
@@ -38,6 +38,6 @@ public class EventsController {
     }
     @PutMapping("/updateEvent/{eventId}")
     public ResponseEntity<Events> updateEvent(@PathVariable Integer eventId, @RequestBody Map<String, String> payload) {
-        return new ResponseEntity<Events>(eventsService.updateEvent(eventId, payload.get("eventName"), payload.get("eventDateTime"), payload.get("eventVenue")), HttpStatus.OK);
+        return new ResponseEntity<Events>(eventsService.updateEvent(eventId, payload.get("eventName"), payload.get("eventDateTime"), payload.get("eventVenue"), payload.get("eventDesc"), payload.get("priceGold"), payload.get("priceSilver"), payload.get("priceBronze")), HttpStatus.OK);
     }
 }
