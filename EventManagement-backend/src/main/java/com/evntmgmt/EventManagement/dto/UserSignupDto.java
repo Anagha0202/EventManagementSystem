@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class UserSignupDto {
     @NotBlank(message = "First Name is required")
-    @Pattern(regexp = "[A-Z][a-z]*",
+    @Pattern(regexp = "[A-Za-z]*",
             message = "First Name should contain only alphabets")
     private String firstName;
     @NotBlank(message = "Last Name is required")
