@@ -10,6 +10,7 @@ public class Command {
     private boolean isSuccessful;
     private String jwtToken;
     private boolean loginCredentialsIsAdmin;
+    private String email;
     public Command(String message, boolean isSuccessful) {
         this.message = message;
         this.isSuccessful = isSuccessful;
@@ -19,11 +20,12 @@ public class Command {
         this.isSuccessful = isSuccessful;
         this.jwtToken = jwtToken;
     }
-    public Command(String message, boolean isSuccessful, String jwtToken, boolean loginCredentialsIsAdmin) {
+    public Command(String message, boolean isSuccessful, String jwtToken, boolean loginCredentialsIsAdmin, String email) {
         this.message = message;
         this.isSuccessful = isSuccessful;
         this.jwtToken = jwtToken;
         this.loginCredentialsIsAdmin = loginCredentialsIsAdmin;
+        this.email = email;
     }
     public void setMessage(String message) {
         this.message = message;
@@ -44,6 +46,13 @@ public class Command {
         return jwtToken;
     }
     public boolean getLoginCredentialsIsAdmin() { return loginCredentialsIsAdmin; }
-
     public void setLoginCredentialsIsAdmin(boolean loginCredentialsIsAdmin) { this.loginCredentialsIsAdmin = loginCredentialsIsAdmin; }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }

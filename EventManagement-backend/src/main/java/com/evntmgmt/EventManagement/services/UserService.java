@@ -49,7 +49,7 @@ public class UserService {
         User user = userRepository.findByEmail(email);
         if (user != null && passwordEncoder.matches(password, user.getPassword())) {
             String jwtToken = jwtUtil.generateToken(email);
-            return new Command("Login successful", true, jwtToken, user.isAdmin());
+            return new Command("Login successful", true, jwtToken, user.isAdmin(), email);
         }
         return new Command("Invalid credentials", false);
     }
