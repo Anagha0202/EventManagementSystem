@@ -30,7 +30,7 @@ public class EventsController {
     }
     @PostMapping("/createEvent")
     public GeneralResponse createEvent(@Valid @RequestBody EventsDto eventsDto) {
-        return eventsService.createEvent(eventsDto.getEventId(), eventsDto.getEventName(), eventsDto.getEventDesc(), eventsDto.getEventDateTime(), eventsDto.getEventVenue(), eventsDto.getPriceGold(), eventsDto.getPriceSilver(), eventsDto.getPriceBronze());
+        return eventsService.createEvent(eventsDto.getEventName(), eventsDto.getEventDesc(), eventsDto.getEventDateTime(), eventsDto.getEventVenue(), eventsDto.getPriceGold(), eventsDto.getPriceSilver(), eventsDto.getPriceBronze());
     }
     @DeleteMapping("/removeEvent/{eventId}")
     public GeneralResponse removeEvent(@PathVariable Integer eventId) {

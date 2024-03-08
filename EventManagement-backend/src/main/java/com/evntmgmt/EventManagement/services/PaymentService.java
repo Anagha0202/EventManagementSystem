@@ -34,6 +34,7 @@ public class PaymentService {
    private SeatsRepository seatsRepository;
     public GeneralResponse verifyPaymentDetails(ObjectId reservationId, String cardNumber, String cardExpiry, String cardCVV, String cardHolderFullName) {
 //        verify card number and matching cvv
+        System.out.println("cardNumber="+cardNumber);
         if (cardNumber.startsWith("3")) {
             if(cardCVV.length()!=4) {
                 return new GeneralResponse("Please enter valid CVV for entered American Express Card", false);
@@ -73,7 +74,7 @@ public class PaymentService {
         assert reservation != null;
         String recipient = reservation.getEmail();
         Integer eventId = reservation.getEventId();
-        Events event = (mongoTemplate.find(new Query(Criteria.where("eventID").is(eventId)), Events.class)).get(0);
+        Events event = (mongoTemplate.find(new Query(Criteria.where("eventId").is(eventId)), Events.class)).get(0);
 
         Seats seats = seatsService.updateSeatAvailability(eventId, reservation.getSeatIds());
         FindAndReplaceOptions options = new FindAndReplaceOptions().returnNew();
@@ -85,7 +86,7 @@ public class PaymentService {
             emailService.sendEmail(recipient, subject, body);
             return new GeneralResponse("Seats booked successfully! Your booking ID is " + reservationId, true);
         } catch (Exception e) {
-            return new GeneralResponse(e.getMessage(), false);
+            return new GeneralResponse("Error: "+e.getMessage(), false);
         }
     }
 }

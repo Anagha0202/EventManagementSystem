@@ -15,12 +15,13 @@ import com.evntmgmt.EventManagement.repository.EventsRepository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 @Service
 public class EventsService {
-    final Integer noOfGold = 5;
-    final Integer noOfSilver = 10;
-    final Integer noOfBronze = 20;
+    final Integer noOfGold = 10;
+    final Integer noOfSilver = 12;
+    final Integer noOfBronze = 12;
     @Autowired
     private EventsRepository eventsRepository;
     @Autowired
@@ -35,10 +36,15 @@ public class EventsService {
     public Optional<Events> oneEvent(Integer eventId){
         return eventsRepository.findEventByEventId(eventId);
     }
-    public GeneralResponse createEvent(Integer eventId, String eventName, String eventDesc, String eventDateTime, String eventVenue, Float priceGold, Float priceSilver, Float priceBronze) {
+    public GeneralResponse createEvent(String eventName, String eventDesc, String eventDateTime, String eventVenue, Float priceGold, Float priceSilver, Float priceBronze) {
+        Random r = new Random();
+        int low = 19;
+        int high = 1000000000;
+        Integer eventId = r.nextInt(high-low) + low;
+
         Optional<Events> existingEvent = eventsRepository.findEventByEventId(eventId);
         if(existingEvent.isPresent()) {
-            return new GeneralResponse("Event ID already exists", false);
+            return new GeneralResponse("Event ID already exists. Please try again.", false);
         }
         Events event = eventsRepository.insert(new Events(eventId, eventName, eventDesc, eventDateTime, eventVenue, priceGold, priceSilver, priceBronze));
         mongoTemplate.save(event, "Events");
