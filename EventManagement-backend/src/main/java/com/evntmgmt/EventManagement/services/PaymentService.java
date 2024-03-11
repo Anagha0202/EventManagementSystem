@@ -48,13 +48,17 @@ public class PaymentService {
         }
 
 //        verify expiration date
-        int month = 0;
-        int year = 0;
+        String month= "";
+        String year= "";
         Pattern pattern = Pattern.compile("^(0[1-9]|1[0-2])\\/?([0-9]{4}|[0-9]{2})$");
         Matcher matcher = pattern.matcher(cardExpiry);
         while (matcher.find()) {
-            month = Integer.parseInt(matcher.group(1));
-            year = Integer.parseInt(matcher.group(2));
+            month = matcher.group(1);
+            String yearsTemp = matcher.group(2);
+            if (yearsTemp.length() == 4) {
+                yearsTemp = yearsTemp.substring(2);
+            }
+            year = yearsTemp;
         }
         DateTimeFormatter ccMonthFormatter = DateTimeFormatter.ofPattern("MM/uu");
         String creditCardExpiryDateString = month+"/"+year;
